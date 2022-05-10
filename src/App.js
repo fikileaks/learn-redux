@@ -1,32 +1,18 @@
 import './App.css'
-import { connect } from 'react-redux'
 import { incrementAction } from './actions'
+import { useDispatch, useSelector } from 'react-redux'
 
-function App(props) {
+function App() {
+  const counter = useSelector((state) => state.count)
+  const dispatch = useDispatch()
   return (
     <div className='App'>
-      counter: {props.count}
-      <button
-        onClick={() => {
-          props.incrementCount()
-        }}>
-        INCREMENT
-      </button>
+      counter: {counter}
+      <button onClick={() => dispatch(incrementAction)}>Increment</button>
     </div>
   )
 }
 
-const mapStateToProps = (state) => ({
-  count: state.count,
-})
-
-const mapDispatchToProps = (dispatch, state) => ({
-  incrementCount: () => {
-    dispatch(incrementAction)
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
-
+export default App
 //Connect : untuk mapping state dari store biar bisa di ambil komponennya sebagai props
 // yang dipake reducer biar dispatch dipake sama appnya
